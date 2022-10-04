@@ -1,6 +1,7 @@
 package study.voicebook.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,4 +28,17 @@ public class Member {
 
     @OneToMany(mappedBy = "members")
     List<Buy_Product> buy_products = new ArrayList<>();
+
+    public Member() {
+    }
+
+    public Member(String site_id, String site_pw, String username, String phone_num, String email, String nickname, MemberType role) {
+        this.site_id = site_id;
+        this.site_pw = site_pw;
+        this.username = username;
+        this.phone_num = phone_num;
+        this.email = email;
+        this.nickname = nickname;
+        this.role = role;
+    }
 }

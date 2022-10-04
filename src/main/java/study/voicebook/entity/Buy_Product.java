@@ -1,12 +1,15 @@
 package study.voicebook.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Buy_Product {
 
     @Id @GeneratedValue
@@ -26,4 +29,10 @@ public class Buy_Product {
     @JoinColumn(name = "book_id")
     private Book books;
 
+    public Buy_Product(OpenType open, LocalDateTime buy_date, LocalDateTime recent_date, int recent_page, String buy_id) {
+        this.open = open;
+        this.buy_date = buy_date;
+        this.recent_date = recent_date;
+        this.recent_page = recent_page;
+    }
 }
