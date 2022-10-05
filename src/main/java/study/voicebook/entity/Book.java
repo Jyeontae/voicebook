@@ -17,15 +17,17 @@ public class Book {
     private String isbn;
     private Long price;
     private String author;
+    private String category1;
+    private String category2;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @OneToMany(mappedBy = "books")
+    List<Member_Book> member_books = new ArrayList<>();
 
     @OneToMany(mappedBy = "book")
     List<Voice> voice = new ArrayList<>();
 
-    @OneToMany(mappedBy = "books")
-    List<Buy_Product> buy_products = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "buy_product_id")
+    Buy_Product buy_product;
 
 }

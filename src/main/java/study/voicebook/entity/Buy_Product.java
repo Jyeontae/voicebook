@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,9 +27,8 @@ public class Buy_Product {
     @JoinColumn(name = "member_id")
     private Member members;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    private Book books;
+    @OneToMany(mappedBy = "buy_product")
+    List<Book> books = new ArrayList<>();
 
     public Buy_Product(OpenType open, LocalDateTime buy_date, LocalDateTime recent_date, int recent_page, String buy_id) {
         this.open = open;

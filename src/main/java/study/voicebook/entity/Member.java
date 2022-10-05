@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Member {
 
     @Id @GeneratedValue
@@ -24,13 +25,10 @@ public class Member {
     private MemberType role;
 
     @OneToMany(mappedBy = "member")
-    List<Book> books = new ArrayList<>();
+    List<Member_Book> books = new ArrayList<>();
 
     @OneToMany(mappedBy = "members")
     List<Buy_Product> buy_products = new ArrayList<>();
-
-    public Member() {
-    }
 
     public Member(String site_id, String site_pw, String username, String phone_num, String email, String nickname, MemberType role) {
         this.site_id = site_id;

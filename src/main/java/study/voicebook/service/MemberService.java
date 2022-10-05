@@ -1,0 +1,25 @@
+package study.voicebook.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import study.voicebook.controller.MemberForm;
+import study.voicebook.entity.Member;
+import study.voicebook.entity.MemberType;
+import study.voicebook.repository.MemberRepository;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class MemberService {
+
+    @Autowired
+    private final MemberRepository memberRepository;
+
+    public Long joinMember(MemberForm memberForm) {
+        Member member = new Member(memberForm.getSite_id(), memberForm.getSite_pw(), memberForm.getUsername(), memberForm.getPhone_num(), memberForm.getEmail(), memberForm.getNickname(), MemberType.MEMBER);
+        memberRepository.save(member);
+        return  member.getId();
+    }
+}
