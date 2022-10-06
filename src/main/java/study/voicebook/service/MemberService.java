@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.voicebook.controller.MemberForm;
+import study.voicebook.controller.form.LoginForm;
+import study.voicebook.controller.form.MemberForm;
 import study.voicebook.entity.Member;
 import study.voicebook.entity.MemberType;
 import study.voicebook.repository.MemberRepository;
@@ -21,5 +22,10 @@ public class MemberService {
         Member member = new Member(memberForm.getSite_id(), memberForm.getSite_pw(), memberForm.getUsername(), memberForm.getPhone_num(), memberForm.getEmail(), memberForm.getNickname(), MemberType.MEMBER);
         memberRepository.save(member);
         return  member.getId();
+    }
+
+    public Boolean loginMember(LoginForm loginForm) {
+        Boolean member = memberRepository.loginComp(loginForm.getSite_id(), loginForm.getSite_pw());
+        return member;
     }
 }

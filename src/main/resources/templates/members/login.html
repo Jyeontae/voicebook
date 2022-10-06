@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  <th:block th:if="${message} != null">
+    <script>
+			top.alert("[[${message}]]");
+		</script>
+  </th:block>
+  <form role="form" action="/members/login" th:object="${loginForm}" method="post">
+    <div class="form-group">
+      <label th:for="site_id">ID</label>
+      <input type="text" th:field="*{site_id}" class="form-control"
+             placeholder="ID를 입력하세요"
+             th:class="${#fields.hasErrors('site_id')}? 'form-control fieldError' : 'form-control'">
+      <p th:if="${#fields.hasErrors('site_id')}" th:errors="*{site_id}">Incorrect date</p>
+    </div>
+    <div class="form-group">
+      <label th:for="site_pw">비밀번호</label>
+      <input type="text" th:field="*{site_pw}" class="form-control"
+             placeholder="비밀번호를 입력하세요"
+             th:class="${#fields.hasErrors('site_pw')}? 'form-control fieldError' : 'form-control'">
+      <p th:if="${#fields.hasErrors('site_pw')}" th:errors="*{site_pw}">Incorrect date</p>
+    </div>
+    <button type="submit" class="btn btn-primary">로그인</button>
+  </form>
+  <br/>
+  <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

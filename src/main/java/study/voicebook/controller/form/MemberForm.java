@@ -1,4 +1,4 @@
-package study.voicebook.controller;
+package study.voicebook.controller.form;
 
 import lombok.Getter;
 import lombok.Setter;
