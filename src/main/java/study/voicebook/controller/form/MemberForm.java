@@ -20,6 +20,4 @@ public class MemberForm {
     private String email;
     @NotEmpty(message = "닉네임은 필수 입력 입니다.")
     private String nickname;
-
-
 }

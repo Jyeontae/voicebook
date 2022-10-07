@@ -48,7 +48,9 @@ class MemberRepositoryTest {
         em.flush();
         em.clear();
         Boolean comp = memberRepository.loginComp("123", "123");
+        Boolean comp2 = memberRepository.loginComp("jyt5768", "1234");
         assertThat(comp).isTrue();
+        assertThat(comp2).isFalse();
     }
 
 }
