@@ -1,7 +1,7 @@
 package study.voicebook.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
+import study.voicebook.dto.showBookDto;
 
 
 import javax.persistence.EntityManager;
@@ -24,5 +24,4 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .fetch().isEmpty();
         return result;
     }
-
 }

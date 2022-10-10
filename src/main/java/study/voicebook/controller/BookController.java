@@ -1,8 +1,6 @@
 package study.voicebook.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,11 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import study.voicebook.controller.form.MemberForm;
 import study.voicebook.controller.form.createBookForm;
+import study.voicebook.dto.showBookDto;
 import study.voicebook.service.BookService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -26,6 +25,7 @@ public class BookController {
 
     @RequestMapping("/")
     public String page_main(Model model) {
+        bookService.initBook();
         model.addAttribute("data", "정연태");
         return "home";
     }
@@ -46,5 +46,10 @@ public class BookController {
         return "books/createBook";
     }
 
-
+    @GetMapping("books")
+    public String showBookList(Model model) {
+        List<showBookDto> result = bookService.showList(new showBookDto());
+        model.addAttribute("bookList", result);
+        return "books/BookList";
+    }
 }
