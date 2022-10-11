@@ -10,6 +10,7 @@ import study.voicebook.entity.Book;
 import study.voicebook.repository.BookRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -41,5 +42,20 @@ public class BookService {
     public List<showBookDto> showList(showBookDto show) {
         List<showBookDto> result = bookRepository.ShowBookDto(show);
         return result;
+    }
+
+    public Book findOne(Long id) {
+        return bookRepository.findByOne(id);
+    }
+
+    @Transactional
+    public void updateBook(createBookForm bookForm, Long id) {
+        bookRepository.updateById(bookForm, id);
+    }
+
+    @Transactional
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+        bookRepository.flush();
     }
 }

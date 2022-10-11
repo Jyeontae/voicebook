@@ -24,5 +24,28 @@ import static study.voicebook.entity.QBook.book;
 @Transactional
 class BookServiceTest {
 
+    @Autowired
+    BookService bookService;
+    @Autowired
+    EntityManager em;
+
+    @Test
+    public void findOne() {
+        Book book = new Book("1", "1", 1, "1", "1", "1");
+        em.persist(book);
+        Book result = bookService.findOne(book.getId());
+        assertThat(book.getId()).isEqualTo(result.getId());
+    }
+
+    @Test
+    public void updateBook() {
+        Book book = new Book("1", "1", 1, "1", "1", "1");
+        em.persist(book);
+        createBookForm createBookForm = new createBookForm();
+        createBookForm.setName("1");
+        createBookForm.setIsbn("1");
+        createBookForm.setPrice(10000);
+        bookService.updateBook(createBookForm, book.getId());
+    }
 
 }

@@ -27,10 +27,14 @@
                 <td th:text="${item.author}"></td>
                 <td th:text="${item.category1}"></td>
                 <td th:text="${item.category2}"></td>
-               <!-- <td>
-                    <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
+                <td>
+                    <a href="#" th:href="@{/books/{id}/edit (id=${item.id})}"
                        class="btn btn-primary" role="button">수정</a>
-                </td>-->
+                </td>
+                <td>
+                    <a href="#" th:href="@{/books/{id}/delete (id=${item.id})}"
+                       class="btn btn-primary" role="button">삭제</a>
+                </td>
             </tr>
             </tbody>
         </table>
