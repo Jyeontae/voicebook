@@ -44,42 +44,42 @@ public class BookController {
         return "books/createBook";
     }
 
-    @GetMapping("books")
+    /*@GetMapping("books")
     public String showBookList(Model model) {
         List<showBookDto> result = bookService.showList(new showBookDto());
         model.addAttribute("bookList", result);
         return "books/BookList";
-    }
+    }*/
 
     /**
      * 책 정보 수정페이지 이동
      */
-    @GetMapping("/books/{id}/edit")
+    /*@GetMapping("/books/{id}/edit")
     public String editBook(@PathVariable("id") Long id, Model model) {
         Book book = bookService.findOne(id);
         showBookDto show = new showBookDto(book.getId(), book.getName(), book.getIsbn(), book.getPrice(), book.getAuthor(), book.getCategory1(), book.getCategory2());
         model.addAttribute("edit", show);
         return "books/BookEdit";
-    }
+    }*/
 
     /**
      * 책 정보 수정 반영
      */
-    @PostMapping("/books/{id}/edit")
+    /*@PostMapping("/books/{id}/edit")
     public String updateBook(@PathVariable("id") Long id, @ModelAttribute("edit") @Valid createBookForm bookForm, BindingResult result, Model model) {
         if(result.hasErrors()){
             return "books/createBook";
         }
         bookService.updateBook(bookForm, id);
         return "redirect:/books";
-    }
+    }*/
 
     /**
      * 책 정보 삭제
      */
-    @GetMapping("/books/{id}/delete")
+    /*@GetMapping("/books/{id}/delete")
     public String deleteBook(@PathVariable("id") Long id, Model model) {
         bookService.deleteBook(id);
         return "redirect:/books";
-    }
+    }*/
 }

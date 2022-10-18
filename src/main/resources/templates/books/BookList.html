@@ -35,6 +35,10 @@
                     <a href="#" th:href="@{/books/{id}/delete (id=${item.id})}"
                        class="btn btn-primary" role="button">삭제</a>
                 </td>
+                <td>
+                    <a href="#" th:href="@{/voices/{id}/create (id=${item.id})}"
+                       class="btn btn-primary" role="button">성우 등록</a>
+                </td>
             </tr>
             </tbody>
         </table>

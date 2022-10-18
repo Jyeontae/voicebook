@@ -42,4 +42,8 @@ public class Book {
         this.category2 = category2;
 
     }
+
+    public Book(Long bookId) {
+        this.id = bookId;
+    }
 }

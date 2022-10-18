@@ -2,6 +2,8 @@ package study.voicebook.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.voicebook.controller.form.createBookForm;
@@ -41,6 +43,12 @@ public class BookService {
     @Transactional
     public List<showBookDto> showList(showBookDto show) {
         List<showBookDto> result = bookRepository.ShowBookDto(show);
+        return result;
+    }
+
+    @Transactional
+    public Page<showBookDto> showPage(showBookDto show, Pageable pageable){
+        Page<showBookDto> result = bookRepository.ShowBookDto(show, pageable);
         return result;
     }
 

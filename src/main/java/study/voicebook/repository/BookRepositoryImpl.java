@@ -1,6 +1,9 @@
 package study.voicebook.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import study.voicebook.controller.form.createBookForm;
 import study.voicebook.dto.QshowBookDto;
 import study.voicebook.dto.showBookDto;
@@ -28,6 +31,19 @@ public class BookRepositoryImpl implements BookRepositoryCustom{
                 .fetch();
 
         return result;
+    }
+
+    @Override
+    public Page<showBookDto> ShowBookDto(showBookDto showBookDto, Pageable pageable) {
+        List<showBookDto> result = queryFactory
+                .select(new QshowBookDto(book.id, book.name, book.isbn, book.price, book.author, book.category1, book.category2))
+                .from(book)
+                .offset(0)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+        long count = result.size();
+        return new PageImpl<>(result, pageable, count);
     }
 
     @Override
