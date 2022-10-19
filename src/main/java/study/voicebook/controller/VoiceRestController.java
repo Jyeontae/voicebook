@@ -6,8 +6,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import study.voicebook.controller.form.createVoiceForm;
+import study.voicebook.dto.VoiceDto;
 import study.voicebook.dto.showBookDto;
 import study.voicebook.entity.Book;
+import study.voicebook.entity.Voice;
 import study.voicebook.service.BookService;
 import study.voicebook.service.VoiceService;
 
@@ -43,5 +45,25 @@ public class VoiceRestController {
         voiceService.saveVoice(voiceForm, id);
         modelAndView.setViewName("redirect:/books");
         return modelAndView;
+    }
+
+    /**
+     * 성우 정보 출력
+     */
+    @GetMapping("/voice")
+    public ModelAndView voiceList(Pageable pageable) {
+        ModelAndView modelAndView = new ModelAndView();
+        Page<VoiceDto> all = voiceService.findAll(pageable);
+        modelAndView.addObject("voice", all);
+        modelAndView.setViewName("voices/VoiceList");
+        return modelAndView;
+    }
+
+    /**
+     * 성우 정보 출력(RestAPI)
+     */
+    @GetMapping("/voice/rest")
+    public Page<VoiceDto> voiceRestList(Pageable pageable) {
+        return voiceService.findAll(pageable);
     }
 }

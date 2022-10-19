@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import study.voicebook.controller.form.createBookForm;
 import study.voicebook.dto.showBookDto;
 import study.voicebook.entity.Book;
+import study.voicebook.entity.Voice;
 import study.voicebook.repository.BookRepository;
+import study.voicebook.repository.VoiceRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,8 @@ public class BookService {
 
     @Autowired
     BookRepository bookRepository;
+    @Autowired
+    VoiceRepository voiceRepository;
 
     @Transactional
     public void initBook() {
@@ -31,6 +35,15 @@ public class BookService {
         bookRepository.save(book2);
         bookRepository.save(book3);
         bookRepository.save(book4);
+
+        Voice voice1 = new Voice("KIM", "123",123, book1);
+        Voice voice2 = new Voice("Lee", "123",123, book1);
+        Voice voice3 = new Voice("Kim", "123",123, book2);
+        Voice voice4 = new Voice("Choi", "123",123, book2);
+        voiceRepository.save(voice1);
+        voiceRepository.save(voice2);
+        voiceRepository.save(voice3);
+        voiceRepository.save(voice4);
     }
     @Transactional
     public Long saveBooks(createBookForm createBookForm) {
@@ -40,6 +53,7 @@ public class BookService {
         return book.getId();
     }
 
+    //상품 조회 서비스
     @Transactional
     public List<showBookDto> showList(showBookDto show) {
         List<showBookDto> result = bookRepository.ShowBookDto(show);

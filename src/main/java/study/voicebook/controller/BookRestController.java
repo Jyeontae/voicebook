@@ -76,10 +76,10 @@ public class BookRestController {
      * 상품 삭제
      */
     @GetMapping("/books/{id}/delete")
-    public ModelAndView deleteBook(@PathVariable("id") Long id) {
+    public ModelAndView deleteBook(@ModelAttribute("id") @PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView();
         bookService.deleteBook(id);
-        modelAndView.setViewName("redirect:/books");
+        modelAndView.setViewName("redirect:/books?page=1&size=2");
         return modelAndView;
     }
 }

@@ -1,9 +1,15 @@
 package study.voicebook.repository;
 
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
+import study.voicebook.controller.QSearchResultDto;
+import study.voicebook.controller.form.BookSearchCondition;
+import study.voicebook.dto.SearchResultDto;
 import study.voicebook.controller.form.createBookForm;
 import study.voicebook.dto.QshowBookDto;
 import study.voicebook.dto.showBookDto;
@@ -14,7 +20,9 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
+import static org.springframework.util.StringUtils.*;
 import static study.voicebook.entity.QBook.*;
+import static study.voicebook.entity.QVoice.*;
 
 public class BookRepositoryImpl implements BookRepositoryCustom{
     private final JPAQueryFactory queryFactory;
@@ -71,5 +79,26 @@ public class BookRepositoryImpl implements BookRepositoryCustom{
                 .set(book.category2, bookForm.getCategory2())
                 .where(book.id.eq(id))
                 .execute();
+    }
+
+    @Override
+    public Page<SearchResultDto> SearchResult(Pageable pageable, BookSearchCondition condition) {
+        List<SearchResultDto> result = queryFactory
+                .select(new QSearchResultDto(voice.book.name, voice.book.author, voice.book.price, voice.name, voice.price))
+                .from(voice)
+                .rightJoin(voice.book)
+                .where(bookNameEq(condition.getBookName()),
+                        voiceNameEq(condition.getVoiceName()))
+                .fetch();
+        long count = result.size();
+        return new PageImpl<>(result, pageable, count);
+    }
+
+    private BooleanExpression voiceNameEq(String voiceName) {
+        return hasText(voiceName) ? voice.name.eq(voiceName) : null;
+    }
+
+    private BooleanExpression bookNameEq(String bookName) {
+        return hasText(bookName) ? voice.book.name.eq(bookName) : null;
     }
 }
