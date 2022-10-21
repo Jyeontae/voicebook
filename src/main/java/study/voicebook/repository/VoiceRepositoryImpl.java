@@ -34,11 +34,16 @@ public class VoiceRepositoryImpl implements VoiceRepositoryCustom{
         em.persist(voice);
     }
 
+    /**
+     * 성우 목록 조회
+     */
     @Override
     public Page<VoiceDto> findAllDto(Pageable pageable) {
         List<VoiceDto> contents = queryFactory
                 .select(new QVoiceDto(voice.id, voice.name, voice.book.name))
                 .from(voice)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
         long count = contents.size();
         return new PageImpl<>(contents, pageable, count);

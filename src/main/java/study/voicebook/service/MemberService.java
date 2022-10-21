@@ -2,10 +2,13 @@ package study.voicebook.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.voicebook.controller.form.LoginForm;
 import study.voicebook.controller.form.MemberForm;
+import study.voicebook.dto.MemberListDto;
 import study.voicebook.entity.Member;
 import study.voicebook.entity.MemberType;
 import study.voicebook.repository.MemberRepository;
@@ -27,5 +30,9 @@ public class MemberService {
     public Boolean loginMember(LoginForm loginForm) {
         Boolean member = memberRepository.loginComp(loginForm.getSite_id(), loginForm.getSite_pw());
         return member;
+    }
+
+    public Page<MemberListDto> findMember(MemberListDto memberListDto, Pageable pageable) {
+        return memberRepository.findMemberAll(memberListDto, pageable);
     }
 }

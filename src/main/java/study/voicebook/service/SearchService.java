@@ -16,6 +16,9 @@ public class SearchService {
     @Autowired
     BookRepository bookRepository;
 
+    /**
+     * 상품 검색
+     */
     public Page<SearchResultDto> Search(Pageable pageable, BookSearchCondition condition) {
         return bookRepository.SearchResult(pageable, condition);
     }

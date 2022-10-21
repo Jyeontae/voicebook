@@ -1,14 +1,12 @@
 package study.voicebook.repository;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.util.StringUtils;
-import study.voicebook.controller.QSearchResultDto;
 import study.voicebook.controller.form.BookSearchCondition;
+import study.voicebook.dto.QSearchResultDto;
 import study.voicebook.dto.SearchResultDto;
 import study.voicebook.controller.form.createBookForm;
 import study.voicebook.dto.QshowBookDto;
