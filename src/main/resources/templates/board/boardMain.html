@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  <div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>게시글 번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>생성 시간</th>
+        <th>수정 시간</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item : ${boardList}">
+        <td th:text="${item.num}"></td>
+        <td th:text="${item.title}"></td>
+        <td th:text="${item.site_id}"></td>
+        <td th:text="${item.createTime}"></td>
+        <td th:text="${item.modifiedTime}"></td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <a href="#" th:href="@{/board/create}"
+     class="btn btn-primary" role="button">게시글 등록</a>
+  <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

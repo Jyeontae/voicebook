@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.voicebook.controller.form.LoginForm;
 import study.voicebook.controller.form.MemberForm;
 import study.voicebook.dto.MemberListDto;
+import study.voicebook.dto.MemberSearchDto;
 import study.voicebook.entity.Member;
 import study.voicebook.entity.MemberType;
 import study.voicebook.repository.MemberRepository;
@@ -32,7 +33,7 @@ public class MemberService {
         return member;
     }
 
-    public Page<MemberListDto> findMember(MemberListDto memberListDto, Pageable pageable) {
-        return memberRepository.findMemberAll(memberListDto, pageable);
+    public Page<MemberListDto> findMember(MemberSearchDto memberSearchDto, Pageable pageable) {
+        return memberRepository.findMemberAll(memberSearchDto, pageable);
     }
 }

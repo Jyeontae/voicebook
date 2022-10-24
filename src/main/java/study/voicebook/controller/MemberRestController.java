@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import study.voicebook.controller.form.LoginForm;
 import study.voicebook.controller.form.MemberForm;
 import study.voicebook.dto.MemberListDto;
+import study.voicebook.dto.MemberSearchDto;
 import study.voicebook.entity.Member;
 import study.voicebook.service.MemberService;
 
@@ -95,20 +96,21 @@ public class MemberRestController {
      * 회원 목록 뷰 이동
      */
     @GetMapping("/members/list")
-    public ModelAndView MemberList(MemberListDto memberListDto, Pageable pageable) {
+    public ModelAndView MemberList(@ModelAttribute("condition") MemberSearchDto memberSearchDto, Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView();
-        Page<MemberListDto> result = memberService.findMember(memberListDto, pageable);
+        Page<MemberListDto> result = memberService.findMember(memberSearchDto, pageable);
+        System.out.println("result = " + result);
         modelAndView.addObject("memberList", result);
         modelAndView.setViewName("members/memberList");
         return modelAndView;
     }
 
     /**
-     * 회원 정보 출력(Rest)
+     * 회원 목록(Rest)
      */
     @GetMapping("/members/list/rest")
-    public Page<MemberListDto> viewMemberListRest(MemberListDto memberListDto, Pageable pageable) {
-        return memberService.findMember(memberListDto, pageable);
+    public Page<MemberListDto> viewMemberListRest(MemberSearchDto memberSearchDto, Pageable pageable) {
+        return memberService.findMember(memberSearchDto, pageable);
     }
 
 }

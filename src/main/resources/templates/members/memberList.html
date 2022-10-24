@@ -5,6 +5,29 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
+        <form th:object="${condition}" class="form-inline">
+            <div class="form-group mb-2">
+                <input type="text" th:field="*{site_id}" class="formcontrol" placeholder="아이디"/>
+            </div>
+            <div class="form-group mb-2">
+                <input type="text" th:field="*{nickname}" class="formcontrol" placeholder="닉네임"/>
+            </div>
+            <div class="form-group mb-2">
+                <input type="text" th:field="*{email}" class="formcontrol" placeholder="이메일"/>
+            </div>
+            <div class="form-group mx-sm-1 mb-2">
+                <select th:field="*{role}" class="form-control">
+                    <option value="">주문상태</option>
+                    <option th:each= "status : ${T(study.voicebook.entity.MemberType).values()}"
+                            th:value="${status}"
+                            th:text="${status}">option
+                    </option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">검색</button>
+        </form>
+    </div>
+    <div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -23,7 +46,7 @@
                 <td th:text="${member.site_id}"></td>
                 <td th:text="${member.nickname}"></td>
                 <td th:text="${member.email}"></td>
-                <td th:text="${member.phone_num"}></td>
+                <td th:text="${member.phonenum"}></td>
                 <td th:text="${member.role"}></td>
 
             </tr>

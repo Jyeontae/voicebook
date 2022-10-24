@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.voicebook.controller.form.createBookForm;
 import study.voicebook.dto.showBookDto;
-import study.voicebook.entity.Book;
-import study.voicebook.entity.Voice;
-import study.voicebook.repository.BookRepository;
-import study.voicebook.repository.VoiceRepository;
+import study.voicebook.entity.*;
+import study.voicebook.repository.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +22,13 @@ public class BookService {
     BookRepository bookRepository;
     @Autowired
     VoiceRepository voiceRepository;
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    BoardRepository boardRepository;
 
     @Transactional
-    public void initBook() {
+    public void initBook() throws InterruptedException {
         Book book1 = new Book("1", "1", 1, "1", "1", "1");
         Book book2 = new Book("2", "2", 2, "2", "2", "2");
         Book book3 = new Book("3", "3", 3, "3", "3", "3");
@@ -44,6 +46,20 @@ public class BookService {
         voiceRepository.save(voice2);
         voiceRepository.save(voice3);
         voiceRepository.save(voice4);
+
+        Member member1 = new Member("id1", "pw1", "123", "123", "123", "member1", MemberType.MEMBER);
+        Member member2 = new Member("id2", "pw2", "123", "123", "123", "member2", MemberType.ADMIN);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        Board board1 = new Board("제목1", "내용1", member1, book1);
+        Board board2 = new Board("제목2", "내용2", member2, book2);
+        Board board3 = new Board("제목3", "내용3", member2, book2);
+        Thread.sleep(1000);
+        board3.getModifiedTime();
+        boardRepository.save(board1);
+        boardRepository.save(board2);
+        boardRepository.save(board3);
     }
     @Transactional
     public Long saveBooks(createBookForm createBookForm) {

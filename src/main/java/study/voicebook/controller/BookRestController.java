@@ -24,7 +24,7 @@ public class BookRestController {
     }
 
     @GetMapping("Restbooks/v1")
-    public List<showBookDto> showBookList(Model model) {
+    public List<showBookDto> showBookList(Model model) throws InterruptedException {
         bookService.initBook();
         return bookService.showList(new showBookDto());
     }

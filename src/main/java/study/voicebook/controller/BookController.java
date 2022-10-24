@@ -22,7 +22,7 @@ public class BookController {
     private final BookService bookService;
 
     @RequestMapping("/")
-    public String page_main(Model model) {
+    public String page_main(Model model) throws InterruptedException {
         bookService.initBook();
         model.addAttribute("data", "정연태");
         return "home";

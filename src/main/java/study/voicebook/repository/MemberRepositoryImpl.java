@@ -7,7 +7,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.ObjectUtils;
 import study.voicebook.dto.MemberListDto;
+import study.voicebook.dto.MemberSearchDto;
 import study.voicebook.dto.QMemberListDto;
 import study.voicebook.entity.MemberType;
 
@@ -37,14 +39,15 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     }
 
     @Override
-    public Page<MemberListDto> findMemberAll(MemberListDto memberListDto, Pageable pageable) {
+    public Page<MemberListDto> findMemberAll(MemberSearchDto memberSearchDto, Pageable pageable) {
         List<MemberListDto> fetch = queryFactory
                 .select(new QMemberListDto(member.id, member.site_id, member.nickname, member.email, member.phone_num, member.role))
                 .from(member)
-                .where(site_idEq(memberListDto.getSite_id()),
-                        nicknameEq(memberListDto.getNickname()),
-                        emailEq(memberListDto.getEmail()),
-                        phoneNumEq(memberListDto.getPhone_num()))
+                .where(site_idEq(memberSearchDto.getSite_id()),
+                        nicknameEq(memberSearchDto.getNickname()),
+                        emailEq(memberSearchDto.getEmail()),
+                        phoneNumEq(memberSearchDto.getPhone_num()),
+                        memberTypeEq(memberSearchDto.getRole()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -52,6 +55,9 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
         return new PageImpl<>(fetch, pageable, count);
     }
 
+    private BooleanExpression memberTypeEq(MemberType role) {
+        return ObjectUtils.isEmpty(role) ? null : member.role.eq(role);
+    }
 
     private BooleanExpression phoneNumEq(String phone) {
         return hasText(phone) ? member.phone_num.eq(phone) : null;
