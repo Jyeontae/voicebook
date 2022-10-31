@@ -2,6 +2,7 @@ package study.voicebook.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.voicebook.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Member {
+public class Member extends BaseTimeEntity{
 
     @Id @GeneratedValue
     @Column(name = "member_id")

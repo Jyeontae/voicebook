@@ -47,19 +47,13 @@ public class BookService {
         voiceRepository.save(voice3);
         voiceRepository.save(voice4);
 
-        Member member1 = new Member("id1", "pw1", "123", "123", "123", "member1", MemberType.MEMBER);
-        Member member2 = new Member("id2", "pw2", "123", "123", "123", "member2", MemberType.ADMIN);
+        Member member1 = new Member("id1", "pw1", "member1", "010-0000-0001", "m1@naver.com", "member1", MemberType.MEMBER);
+        Member member2 = new Member("id2", "pw2", "member2", "010-0000-0002", "m2@naver.com", "member2", MemberType.ADMIN);
+        Member member3 = new Member("id3", "pw3", "member3", "010-0000-0003", "m3@naver.com", "member3", MemberType.ADMIN);
+
         memberRepository.save(member1);
         memberRepository.save(member2);
-
-        Board board1 = new Board("제목1", "내용1", member1, book1);
-        Board board2 = new Board("제목2", "내용2", member2, book2);
-        Board board3 = new Board("제목3", "내용3", member2, book2);
-        Thread.sleep(1000);
-        board3.getModifiedTime();
-        boardRepository.save(board1);
-        boardRepository.save(board2);
-        boardRepository.save(board3);
+        memberRepository.save(member3);
     }
     @Transactional
     public Long saveBooks(createBookForm createBookForm) {

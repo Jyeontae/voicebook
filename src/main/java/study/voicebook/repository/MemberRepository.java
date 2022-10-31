@@ -5,4 +5,5 @@ import study.voicebook.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
     Member findByUsername(String username);
+    Member findByNickname(String nickname);
 }

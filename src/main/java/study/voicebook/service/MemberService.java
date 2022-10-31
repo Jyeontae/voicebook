@@ -34,6 +34,6 @@ public class MemberService {
     }
 
     public Page<MemberListDto> findMember(MemberSearchDto memberSearchDto, Pageable pageable) {
-        return memberRepository.findMemberAll(memberSearchDto, pageable);
+           return memberRepository.findMemberAll(memberSearchDto, pageable);
     }
 }

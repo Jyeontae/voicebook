@@ -3,6 +3,7 @@ package study.voicebook.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.voicebook.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Book {
+public class Book extends BaseTimeEntity{
 
     @Id @GeneratedValue
     @Column(name = "book_id")
@@ -32,6 +33,7 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buy_product_id")
     Buy_Product buy_product;
+
 
     public Book(String name, String isbn, int price, String author, String category1, String category2) {
         this.name = name;

@@ -5,18 +5,16 @@ import lombok.Data;
 
 @Data
 public class BoardFindDto {
-    private Long num;
     private String title;
+    private String contents;
     private String memberName;
     private String bookName;
-    private String contents;
 
     @QueryProjection
-    public BoardFindDto(Long num, String title, String memberName, String bookName, String contents) {
-        this.num = num;
+    public BoardFindDto(String title, String contents, String memberName, String bookName) {
         this.title = title;
+        this.contents = contents;
         this.memberName = memberName;
         this.bookName = bookName;
-        this.contents = contents;
     }
 }

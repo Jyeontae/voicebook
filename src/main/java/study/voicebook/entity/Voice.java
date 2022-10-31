@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import study.voicebook.BaseTimeEntity;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Voice {
+public class Voice extends BaseTimeEntity{
 
     @Id @GeneratedValue
     @Column(name = "voice_id")
