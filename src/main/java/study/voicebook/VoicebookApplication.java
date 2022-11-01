@@ -12,9 +12,6 @@ import javax.persistence.EntityManager;
 @SpringBootApplication
 public class VoicebookApplication {
 
-	@Autowired
-	EntityManager em;
-
 	public static void main(String[] args) {
 		SpringApplication.run(VoicebookApplication.class, args);
 

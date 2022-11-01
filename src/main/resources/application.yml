@@ -25,3 +25,8 @@ spring:
   logging.level:
     org.hibernate.SQL: debug
     # org.hibernate.type: trace
+
+Server:
+  servlet:
+    session:
+      timeout: 180

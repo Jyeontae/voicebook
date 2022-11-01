@@ -74,6 +74,4 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     private BooleanExpression site_idEq(String site_id) {
         return hasText(site_id)? member.site_id.eq(site_id) : null;
     }
-
-
 }

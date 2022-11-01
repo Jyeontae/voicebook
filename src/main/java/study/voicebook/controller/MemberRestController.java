@@ -13,6 +13,8 @@ import study.voicebook.dto.MemberSearchDto;
 import study.voicebook.entity.Member;
 import study.voicebook.service.MemberService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RestController
@@ -85,11 +87,29 @@ public class MemberRestController {
     }
 
     /**
-     * 마이페이지로 이동할 예정(로그인후 바로)
+     * 로그인(세션)
      */
-    @GetMapping("/{id}")
-    public String longinHome(@PathVariable("id") String site_id) {
-        return "home";
+    @PostMapping("/members/rest/login")
+    public String loginRest(HttpServletRequest request, LoginForm loginForm) {
+        //true면 그냥 들어와도 세션이 만들어지므로 false로
+        HttpSession session;
+        Boolean loginMember = memberService.loginMember(loginForm);
+        if(!loginMember) {
+            session = request.getSession();
+            session.setAttribute("session_Id", loginForm.getSite_id());
+            return session.getAttribute("session_Id").toString();
+        }
+        return null;
+    }
+
+    /**
+     * 마이페이지
+     */
+    @GetMapping("/members/mypage/rest")
+    public String longinHome(HttpServletRequest request, String site_id) {
+        HttpSession session;
+        session = request.getSession();
+        return session.getAttribute("session_Id").toString()+"의 마이페이지";
     }
 
     /**

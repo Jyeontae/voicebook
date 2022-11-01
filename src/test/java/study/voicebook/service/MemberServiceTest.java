@@ -9,6 +9,8 @@ import study.voicebook.entity.Member;
 import study.voicebook.entity.MemberType;
 import study.voicebook.repository.MemberRepository;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
