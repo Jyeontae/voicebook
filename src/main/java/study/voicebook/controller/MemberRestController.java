@@ -2,7 +2,6 @@ package study.voicebook.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,7 +9,6 @@ import study.voicebook.controller.form.LoginForm;
 import study.voicebook.controller.form.MemberForm;
 import study.voicebook.dto.MemberListDto;
 import study.voicebook.dto.MemberSearchDto;
-import study.voicebook.entity.Member;
 import study.voicebook.service.MemberService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,13 +65,16 @@ public class MemberRestController {
      * 로그인 검증
      */
     @PostMapping("/members/login")
-    public ModelAndView loginComp(@ModelAttribute("loginForm") @Valid LoginForm loginForm) {
+    public ModelAndView loginComp(@ModelAttribute("loginForm") @Valid LoginForm loginForm, HttpServletRequest request) {
         Boolean compResult = memberService.loginMember(loginForm);
-        ModelAndView modelAndView = null;
+        HttpSession session;
+        ModelAndView modelAndView;
         //로그인 성공
-        if(compResult == false) {
+        if(!compResult) {
             modelAndView = new ModelAndView();
-            modelAndView.addObject("message", (String)loginForm.getSite_id()+"님 반갑습니다.");
+            modelAndView.addObject("message", loginForm.getSite_id()+"님 반갑습니다.");
+            session = request.getSession();
+            session.setAttribute("session_id", loginForm.getSite_id());
             new ModelAndView().setViewName("redirect:/");
             return modelAndView;
         }
@@ -106,10 +107,20 @@ public class MemberRestController {
      * 마이페이지
      */
     @GetMapping("/members/mypage/rest")
-    public String longinHome(HttpServletRequest request, String site_id) {
+    public String longinHome(HttpServletRequest request) {
         HttpSession session;
         session = request.getSession();
         return session.getAttribute("session_Id").toString()+"의 마이페이지";
+    }
+
+    @GetMapping("/members/mypage")
+    public ModelAndView myPage(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession();
+        System.out.println("세션값 = " + session.getAttribute("session_id"));
+        modelAndView.setViewName("members/myPage");
+        modelAndView.addObject("pageData", session.getAttribute("session_id"));
+        return modelAndView;
     }
 
     /**
