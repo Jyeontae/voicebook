@@ -3,10 +3,7 @@ package study.voicebook.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import study.voicebook.dto.BoardCreateDto;
 import study.voicebook.dto.BoardDto;
@@ -38,9 +35,9 @@ public class BoardRestController {
     }
 
     /**
-     * 게시글 수정(id는 게시글 번호)(UODATE)
+     * 게시글 수정(id는 게시글 번호)(UPDATE)
      */
-    @PostMapping("/board/{id}/update")
+    @PutMapping("/board/{id}")
     public void updateBoard(@PathVariable Long id, BoardUpdateDto boardUpdateDto) {
         boardService.updateBoard(id, boardUpdateDto);
     }
@@ -48,7 +45,7 @@ public class BoardRestController {
     /**
      * 게시글 삭제(DELETE)
      */
-    @PostMapping("/board/{id}/delete")
+    @DeleteMapping("/board/{id}")
     public void deleteBoard(@PathVariable Long id) {
         boardService.deleteBoard(id);
     }

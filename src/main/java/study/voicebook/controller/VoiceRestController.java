@@ -26,7 +26,7 @@ public class VoiceRestController {
         this.voiceService = voiceService;
     }
 
-    @GetMapping("/voices/{id}/create")
+    @GetMapping("/voices/{id}/new")
     public ModelAndView saveVoice(@PathVariable("id") Long id, @ModelAttribute("create") @Valid createVoiceForm voiceForm) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("create", voiceForm);
@@ -34,7 +34,7 @@ public class VoiceRestController {
         return modelAndView;
     }
 
-    @PostMapping("/voices/{id}/create")
+    @PostMapping("/voices/{id}/new")
     public ModelAndView submitVoice(@PathVariable("id") Long id, @ModelAttribute("create") @Valid createVoiceForm voiceForm, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
         if(result.hasErrors()){
@@ -46,7 +46,6 @@ public class VoiceRestController {
         modelAndView.setViewName("redirect:/books");
         return modelAndView;
     }
-
     /**
      * 성우 정보 출력
      */

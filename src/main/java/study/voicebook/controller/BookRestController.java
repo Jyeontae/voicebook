@@ -61,7 +61,7 @@ public class BookRestController {
     /**
      * 상품 수정
      */
-    @PostMapping("/books/{id}/edit")
+    @PutMapping("/books/{id}")
     public ModelAndView updateBook(@PathVariable("id") Long id, @ModelAttribute("edit") @Valid createBookForm bookForm, BindingResult result, Model model) {
         ModelAndView modelAndView = new ModelAndView();
         if(result.hasErrors()){
@@ -75,7 +75,7 @@ public class BookRestController {
     /**
      * 상품 삭제
      */
-    @GetMapping("/books/{id}/delete")
+    @DeleteMapping("/books/{id}")
     public ModelAndView deleteBook(@ModelAttribute("id") @PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView();
         bookService.deleteBook(id);

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import study.voicebook.BaseTimeEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Member extends BaseTimeEntity{
     private String site_pw;
     private String username;
     private String phone_num;
+    @Email
     private String email;
     private String nickname;
     @Enumerated(EnumType.STRING)
